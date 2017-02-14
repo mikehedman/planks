@@ -1,0 +1,32 @@
+.container {
+  padding: 30px;
+  margin-top: 65px;
+}
+
+.label {
+  color: #2B3A42;
+}
+
+.sounds-switch {
+  composes: switch from '../sharedStyles.css';
+}
+
+.sounds-slider {
+  composes: slider from '../sharedStyles.css';
+}
+
+
+
+
+.inc-button {
+  composes: simple-button from '../sharedStyles.css';
+  color: #2B3A42;
+}
+.dec-button {
+  composes: simple-button from '../sharedStyles.css';
+  color: #2B3A42
+}
+.reset-button {
+  composes: simple-button from '../sharedStyles.css';
+  color: #2B3A42;
+}

@@ -1,0 +1,28 @@
+.interval {
+  padding-top: 7px;
+  height: 30px;
+  /*flex: 3;*/
+}
+.activeRow {
+  color: red;
+  font-size: 20px;
+  padding-top: 2px;
+  padding-left: 5px;
+}
+.activeSeconds {
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 2px;
+  /*flex: 2;*/
+}
+.inactiveRow {
+  padding: 5px;
+}
+.separator {
+  height: 1px;
+  backgroundColor: '#dddddd';
+}
+.intervalRow {
+  /*flexDirection: 'row';*/
+  width: 300px;
+}
