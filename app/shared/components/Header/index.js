@@ -12,6 +12,7 @@ export default function Header() {
             <li><Link to="timer">Timer</Link></li>
             <li><Link to="notes">Notes</Link></li>
             <li><Link to="info">Info</Link></li>
+            <li><Link to="intervals">Intervals</Link></li>
           </ul>
         </nav>
       </div>

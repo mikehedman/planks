@@ -1,6 +1,9 @@
 class Sounds {
   constructor() {
-    this.context = new (window.AudioContext || window.webkitAudioContext);
+    //the reference to 'window' barfs in server side rendering, sso we just skip it if on server
+    if (typeof window !== 'undefined') {
+      this.context = new (window.AudioContext || window.webkitAudioContext);
+    }
   }
 
   /**

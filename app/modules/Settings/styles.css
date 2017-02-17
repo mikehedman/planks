@@ -15,9 +15,6 @@
   composes: slider from '../sharedStyles.css';
 }
 
-
-
-
 .inc-button {
   composes: simple-button from '../sharedStyles.css';
   color: #2B3A42;

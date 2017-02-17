@@ -3,6 +3,9 @@ import { Link } from 'react-router';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import styles from './styles.css';
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+
+import { Button } from 'react-bootstrap';
 
 @observer(["timerStore", "settingsStore"])
 export default class Settings extends Component {
@@ -27,7 +30,7 @@ export default class Settings extends Component {
     this.props.settingsStore.playSounds = e.target.checked;
   };
   onIntervalGoPressed = () => {
-    let i = 1;
+    this.props.history.push('/intervals');
   };
 
   render() {
@@ -52,10 +55,11 @@ export default class Settings extends Component {
                 placeholder='>15 sec'
                 onChange={this.handleChangeIntervalSeconds}/>
             </div>
-            <button
+            <Button
+              bsStyle="info"
               onClick={this.onIntervalGoPressed.bind(this)}>
               <div>Go</div>
-            </button>
+            </Button>
           </section>
 
         <label className={styles.soundsSwitch}>
@@ -66,7 +70,7 @@ export default class Settings extends Component {
             <div className={styles.soundsSlider}></div>
         </label>
 
-        <div>play the sounds {this.props.settingsStore.playSounds}</div>
+        <div>play sounds: {this.props.settingsStore.playSounds ? "Yes" : "No"}</div>
           {/*<section>*/}
             {/*<h2>*/}
               {/*Timer Mode*/}
