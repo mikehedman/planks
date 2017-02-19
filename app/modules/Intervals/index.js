@@ -7,6 +7,7 @@ import IntervalRow from './components/IntervalRow';
 const NUM_INTERVALS = 16;
 const START_UNDERLAY_COLOR = '#abd59c';
 const STOP_UNDERLAY_COLOR = '#e06060';
+import Footer from 'components/Footer';
 
 @observer(["settingsStore", "timerStore"])
 export default class Intervals extends Component {
@@ -61,6 +62,8 @@ export default class Intervals extends Component {
         {this.intervalTimes.map(function(interval, index) {
           return <IntervalRow key={index} interval={interval} row={index} ref={component => this.intervalRows['interval' + index] = component}/>
         }, this)}
+        <Footer />
+
       </div>
     );
   }

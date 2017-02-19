@@ -3,9 +3,8 @@ import { Link } from 'react-router';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import styles from './styles.css';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
-import { Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/lib/Button';
 
 @observer(["timerStore", "settingsStore"])
 export default class Settings extends Component {
@@ -45,7 +44,7 @@ export default class Settings extends Component {
               Intervals
             </h2>
             <div>
-              <div className={styles.label}>
+              <div className="label">
                 Starting seconds:
               </div>
 
@@ -57,17 +56,19 @@ export default class Settings extends Component {
             </div>
             <Button
               bsStyle="info"
+              bsSize="xsmall"
               onClick={this.onIntervalGoPressed.bind(this)}>
-              <div>Go</div>
+              Go
             </Button>
+
           </section>
 
-        <label className={styles.soundsSwitch}>
+        <label className="switch">
           <input
             type="checkbox"
             checked={this.props.settingsStore.playSounds}
             onChange={this.handleChangePlaySounds}/>
-            <div className={styles.soundsSlider}></div>
+            <div className="slider"></div>
         </label>
 
         <div>play sounds: {this.props.settingsStore.playSounds ? "Yes" : "No"}</div>

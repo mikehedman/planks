@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
-import styles from './styles.css';
+import './styles.css';
 
 @observer(["timerStore"])
 export default class Timer extends Component {
@@ -23,20 +23,20 @@ export default class Timer extends Component {
     return (
       <div>
         <h1>
-          <span className={styles.label}>Timer:</span>
-          <span className={styles.counter}> {this.store.counter}</span>
+          <span className="label">Timer:</span>
+          <span className="counter"> {this.store.counter}</span>
         </h1>
         <button
           onClick={this.store.reset}
-          className={styles.resetButton}
+          className="reset-button"
         >Reset</button>
         <button
           onClick={this.store.decrement}
-          className={styles.incButton}
+          className="inc-button"
         >-10</button>
         <button
           onClick={this.store.increment}
-          className={styles.decButton}
+          className="dec-button"
         >+10</button>
       </div>
     );

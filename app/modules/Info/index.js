@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Awake from 'Awake';
 import Sounds from 'Sounds';
+import Button from 'react-bootstrap/lib/Button';
 
 export default class Info extends Component {
   toggleAwake() {
@@ -15,6 +16,7 @@ export default class Info extends Component {
       <div>
         <div>This is the info page</div>
         <button onClick={this.toggleAwake}>Toggle awake</button>
+        <Button bsStyle="danger">Danger</Button>
       </div>
     );
   }
