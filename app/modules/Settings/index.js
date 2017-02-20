@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import styles from './styles.css';
+import Header from 'components/Header';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -35,33 +36,34 @@ export default class Settings extends Component {
   render() {
     return (
       <div>
+        <Header rightLink="/info" rightText="Info"/>
 
-          <h1>
-            Select a workout:
-          </h1>
-          <section>
-            <h2>
-              Intervals
-            </h2>
-            <div>
-              <div className="label">
-                Starting seconds:
-              </div>
-
-              <input
-                type="text"
-                value={this.props.settingsStore.intervalSeconds}
-                placeholder='>15 sec'
-                onChange={this.handleChangeIntervalSeconds}/>
+        <h1>
+          Select a workout:
+        </h1>
+        <section>
+          <h2>
+            Intervals
+          </h2>
+          <div>
+            <div className="label">
+              Starting seconds:
             </div>
-            <Button
-              bsStyle="info"
-              bsSize="xsmall"
-              onClick={this.onIntervalGoPressed.bind(this)}>
-              Go
-            </Button>
 
-          </section>
+            <input
+              type="text"
+              value={this.props.settingsStore.intervalSeconds}
+              placeholder='>15 sec'
+              onChange={this.handleChangeIntervalSeconds}/>
+          </div>
+          <Button
+            bsStyle="info"
+            bsSize="xsmall"
+            onClick={this.onIntervalGoPressed.bind(this)}>
+            Go
+          </Button>
+
+        </section>
 
         <label className="switch">
           <input

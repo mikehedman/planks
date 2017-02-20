@@ -1,14 +1,15 @@
-import { observable, action, autorun, transaction } from 'mobx';
+import { observable, action, computed, transaction } from 'mobx';
 
 class TimerStore {
   @observable counter = 0;
-  intervalObj;
+  @observable interval = null;
 
   @action startTimer = () => {
-    this.intervalObj = setInterval(action(() => { this.counter++; }), 1000);
+    this.interval = setInterval(action(() => { this.counter++; }), 1000);
   }
   @action stopTimer = () => {
-    clearInterval(this.intervalObj);
+    clearInterval(this.interval);
+    this.interval = null;
   }
   @action increment = () => {
     this.counter += 10;
@@ -21,6 +22,26 @@ class TimerStore {
   @action reset = () => {
     this.counter = 0;
     return this.counter;
+  }
+
+  @computed get formattedTime() {
+    let seconds = this.counter;
+    let text = '';
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    if (minutes > 0) {
+      text += minutes;
+    }
+    text += ':';
+    if (seconds < 10) {
+      text += '0';
+    }
+    text += seconds;
+    return text;
+  }
+
+  @computed get isRunning() {
+    return this.interval !== null;
   }
 }
 

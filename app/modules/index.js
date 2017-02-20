@@ -3,7 +3,7 @@ import { useStrict } from 'mobx';
 useStrict();
 import { Provider } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
-import Header from 'components/Header';
+
 
 import styles from './sharedStyles.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -16,7 +16,7 @@ import { store as timerStore } from './Timer';
 export default function App({ children }) {
   return (
     <div>
-      <Header />
+
 
 
       {/*<Navbar>*/}
