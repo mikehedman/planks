@@ -19,7 +19,7 @@ export default class Notes extends Component {
       <div>
         <h1>
           <span >Timer:</span>
-          <span > {this.props.timerStore.counter}</span>
+          <span > {this.props.timerStore.elapsedSeconds}</span>
         </h1>
         <NoteList store={this.props.noteStore} />
       </div>

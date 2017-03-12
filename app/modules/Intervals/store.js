@@ -1,94 +1,100 @@
-import { observable, action, autorun } from 'mobx';
+import { observable, action, computed, autorun } from 'mobx';
 
+class IntervalsStore {
+  @observable NUM_INTERVALS = 16;
 
-class IntervalStore {
+  @observable intervals = [];
+  @observable activeIntervalIndex = 0;
+  @observable activeIntervalSeconds = 0;
 
-  @observable activeRow = 0;
-  @observable activeSeconds = 0;
   @observable elapsedSeconds = 0;
-  @observable totalSeconds = 0;
-  @observable  hasStarted = false;
-  @observable timerRunning = false;
-  @observable intervalTimes = intervalTimes;
-  @observable timer = null;
-  @observable idleTimer = null;
-  @observable playSounds = this.props.playSounds;
+  @observable oneSecondInterval = null;
 
-  @action setActiveRow(activeRow) {
-    this.activeRow = activeRow;
+  @action startTimer = () => {
+    this.oneSecondInterval = setInterval(action(() => this.eachSecond()), 1000);
+  }
+  @action stopTimer = () => {
+    clearInterval(this.oneSecondInterval);
+    this.oneSecondInterval = null;
+  }
+  @action reset = () => {
+    this.elapsedSeconds = 0;
+    return this.elapsedSeconds;
   }
 
-  @action setActiveSeconds(activeSeconds) {
-    this.activeSeconds = activeSeconds;
+  @computed get formattedTime() {
+    let seconds = this.elapsedSeconds;
+    let text = '';
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    if (minutes > 0) {
+      text += minutes;
+    }
+    text += ':';
+    if (seconds < 10) {
+      text += '0';
+    }
+    text += seconds;
+    return text;
   }
 
-  @action setTotalSeconds(totalSeconds) {
-    this.totalSeconds = totalSeconds;
-  }
-
-  @action setHasStarted(hasStarted) {
-    this.hasStarted = hasStarted;
-  }
-
-  @action setTimerRunning(timerRunning) {
-    this.timerRunning = timerRunning;
-  }
-
-  @action setIntervalTimes(intervalTimes) {
-    this.intervalTimes = intervalTimes;
-  }
-
-  @action setPlaySounds(playSounds) {
-    this.playSounds = playSounds;
+  @computed get isRunning() {
+    return this.oneSecondInterval !== null;
   }
 
 
+  //
+  // @action setPlaySounds(playSounds) {
+  //   this.playSounds = playSounds;
+  // }
 
-  @observable notes = [];
-  
-  @action getNotesFromServer = () => {
-    fetch('/api/notes')
-      .then(
-        r => r.status !== 200 ?
-          console.error(`Notes fetching error: ${r.status}`) :
-          r.json()
-      )
-      .then(action(data => { this.notes = data; }))
-      .catch(err => console.error(err));
+  eachSecond() {
+    this.elapsedSeconds++;
+console.log('active: ' + this.activeIntervalSeconds + ' elapsed: ' + this.elapsedSeconds + '  index: ' + this.activeIntervalIndex);
+    this.activeIntervalSeconds--;
+    if (this.activeIntervalSeconds == 0) {
+      //find the next non-zero interval
+      do {
+        if (this.activeIntervalIndex == this.NUM_INTERVALS - 1) {
+          //done with the last interval
+          this.activeIntervalIndex = null;
+        } else {
+          this.activeIntervalIndex++;
+          this.activeIntervalSeconds = this.intervals[this.activeIntervalIndex];
+        }
+      } while (this.intervals[this.activeIntervalIndex] == 0 && this.activeIntervalIndex !== null);
+    }
+
+  };
+
+  @action initialize(startingInterval) {
+    const PRONE_ADJUSTMENT = 15;
+
+    let interval_drop;
+    if ((startingInterval) <= 50) {
+      interval_drop = 5;
+    } else if ((startingInterval) < 75) {
+      interval_drop = 10;
+    } else {
+      interval_drop = 15;
+    }
+
+    let newIntervals = [];
+    let sideTime = startingInterval;
+    for (let i = 0; i < this.NUM_INTERVALS / 4; i++) {
+      newIntervals.push(Math.max(0, sideTime));
+      newIntervals.push(Math.max(0, sideTime - PRONE_ADJUSTMENT));
+      newIntervals.push(Math.max(0, sideTime));
+      newIntervals.push(Math.max(0, sideTime - PRONE_ADJUSTMENT));
+      sideTime -= interval_drop;
+    }
+
+    this.intervals = newIntervals;
+    this.activeIntervalIndex = 0;
+    this.activeIntervalSeconds = this.intervals[0];
   }
-  @action update = (idx, title, body) => {
-    this.notes[idx].title = title;
-    this.notes[idx].body = body;
-    const note = this.notes[idx];
-    this.sendJson(note, 'PUT');
-    return this.notes[idx];
-  }
-  @action remove = (idx) => {
-    this.sendJson({id: this.notes[idx].id}, 'DELETE');
-    return this.notes.splice(idx, 1);
-  }
-  @action add = (title, body) => {
-    const arrayOfIds = this.notes.length ? this.notes.map(note => note.id) : [0];
-    const id = Math.max.apply(Math, arrayOfIds) + 1;
-    const newNote = { id, title, body };
-    this.notes.push(newNote);
-    this.sendJson(newNote);
-    return newNote;
-  }
-  sendJson(json, method = 'POST') {
-    fetch('/api/notes', {
-      method,
-      headers: {  
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
-      },
-      body: `json=${encodeURI(JSON.stringify(json))}`
-    })
-    .then(r => {
-      if (r.status !== 200) console.error(`Post error: ${r.status}`);
-    })
-    .catch(err => { console.log(err); });
-  }
+
 }
-let store = new IntervalStore;
+const store = new IntervalsStore;
 
 export default store;

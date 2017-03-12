@@ -1,6 +1,7 @@
+useStrict();
 import React, { Component, cloneElement } from 'react';
 import { useStrict } from 'mobx';
-useStrict();
+
 import { Provider } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
@@ -12,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { store as settingsStore } from './Settings';
 import { store as noteStore } from './Notes';
 import { store as timerStore } from './Timer';
+import { store as intervalsStore } from './Intervals';
 
 export default function App({ children }) {
   return (
@@ -40,7 +42,7 @@ export default function App({ children }) {
 
 
       <main role="main" className={styles.main}>
-        <Provider {...{ settingsStore, noteStore, timerStore }}>
+        <Provider {...{ settingsStore, noteStore, timerStore, intervalsStore }}>
           {children}
         </Provider>
       </main>

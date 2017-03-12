@@ -24,7 +24,7 @@ export default class Timer extends Component {
       <div>
         <h1>
           <span className="label">Timer:</span>
-          <span className="counter"> {this.store.counter}</span>
+          <span className="counter"> {this.store.elapsedSeconds}</span>
         </h1>
         <button
           onClick={this.store.reset}

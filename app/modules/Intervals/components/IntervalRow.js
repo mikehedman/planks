@@ -32,7 +32,7 @@ export default class IntervalRow extends Component {
     return (
       <div>
         <div className={styles.intervalRow}>
-          <span >{this.props.row + 1}. {label}: {this.props.interval}</span><span >{activeSeconds}</span>
+          <span >{this.props.row + 1}. {label}: {this.props.oneSecondInterval}</span><span >{activeSeconds}</span>
         </div>
         <hr/>
       </div>

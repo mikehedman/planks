@@ -2,24 +2,27 @@ import React, { Component } from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import styles from './styles.css';
-import IntervalRow from './components/IntervalRow';
+import IntervalSquare from './components/IntervalSquare';
 
-const NUM_INTERVALS = 16;
 const START_UNDERLAY_COLOR = '#abd59c';
 const STOP_UNDERLAY_COLOR = '#e06060';
 import Header from 'components/Header';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Button from 'react-bootstrap/lib/Button';
 
-@observer(["settingsStore", "timerStore"])
+@observer(["settingsStore", "intervalsStore"])
 export default class Intervals extends Component {
 
   constructor(props) {
     super(props);
-    this.timer = this.props.timerStore;
+console.log(JSON.stringify(this.props));
 
     // const intervalTimes = this._makeIntervals(this.props.startingIntervalSeconds);
-    this.intervalTimes = this._makeIntervals(this.props.settingsStore.intervalSeconds);
+    this.props.intervalsStore.initialize(this.props.settingsStore.intervalSeconds);
+
+    this.activeSeconds = this.props.intervalsStore.intervals[0];
+
+
     this.state = {
       activeRow: 0,
       activeSeconds: 0,
@@ -37,6 +40,7 @@ export default class Intervals extends Component {
     this.intervalRows = [];
     this.scrollView = null;
   }
+
 
   render() {
     // const parentState = this.props.parent.state;
@@ -60,14 +64,16 @@ export default class Intervals extends Component {
     //   //if we're done with the last interval, just set to zero
     //   activeSeconds = activeSeconds < 0 ? 0 : activeSeconds;
     // }
+    const headers = ['left', 'prone', 'right', 'prone'];
 
     let startStopButton;
-    if (this.timer.isRunning) {
+
+    if (this.props.intervalsStore.isRunning) {
       startStopButton =
         <Button
           bsStyle="danger"
           bsSize="xsmall"
-          onClick={this.timer.stopTimer}>
+          onClick={this.props.intervalsStore.stopTimer}>
           Stop
         </Button>
     } else {
@@ -75,24 +81,36 @@ export default class Intervals extends Component {
         <Button
           bsStyle="info"
           bsSize="xsmall"
-          onClick={this.timer.startTimer}>
+          onClick={this.props.intervalsStore.startTimer}>
           Start
         </Button>
     }
+
     return (
       <div>
         <Header leftLink="/" leftText="Settings"/>
-        {this.intervalTimes.map(function(interval, index) {
-          return <IntervalRow key={index} interval={interval} row={index} ref={component => this.intervalRows['interval' + index] = component}/>
-        }, this)}
-
-
+        <div className="intervalContainer">
+          {headers.map(function(text, index) {
+            return <div className="headerSquare" key={index} >
+                <div className="content">
+                  <div className="table">
+                    <div className="table-cell">
+                      {text}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            })
+          }
+          {this.props.intervalsStore.intervals.map(function(interval, index) {
+            return <IntervalSquare key={index} interval={interval} activeIntervalIndex={this.props.intervalsStore.activeIntervalIndex} row={index} activeIntervalSeconds={this.props.intervalsStore.activeIntervalSeconds}/>
+            {/*return <IntervalSquare key={index} interval={interval} activeIntervalIndex={this.props.intervalsStore.activeIntervalIndex} row={index} ref={component => this.intervalRows['interval' + index] = component}/>*/}
+          }, this)}
+        </div>
 
         <Navbar fixedBottom>
-          <div className="timeLabel">
-            Elapsed
-          </div>
-          <div>{this.timer.formattedTime}</div>
+          <div className="timeLabel">Elapsed</div>
+          <div>{this.props.intervalsStore.formattedTime}</div>
           {startStopButton}
 
         </Navbar>
@@ -126,29 +144,6 @@ export default class Intervals extends Component {
     );
   }
 
-  _makeIntervals(startingInterval) {
-    const PRONE_ADJUSTMENT = 15;
-    var interval_drop;
-
-    if ((startingInterval) <= 50) {
-      interval_drop = 5;
-    } else if ((startingInterval) < 75) {
-      interval_drop = 10;
-    } else {
-      interval_drop = 15;
-    }
-
-    var intervals = [];
-    var sideTime = startingInterval;
-    for (var i = 0; i < NUM_INTERVALS / 4; i++) {
-      intervals.push(Math.max(0, sideTime));
-      intervals.push(Math.max(0, sideTime - PRONE_ADJUSTMENT));
-      intervals.push(Math.max(0, sideTime));
-      intervals.push(Math.max(0, sideTime - PRONE_ADJUSTMENT));
-      sideTime -= interval_drop;
-    }
-
-    return intervals;
-  }
-
 }
+
+export store from './store';
