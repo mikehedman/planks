@@ -8,6 +8,8 @@ const START_UNDERLAY_COLOR = '#abd59c';
 const STOP_UNDERLAY_COLOR = '#e06060';
 import Header from 'components/Header';
 import Navbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavItem from 'react-bootstrap/lib/NavItem';
 import Button from 'react-bootstrap/lib/Button';
 
 @observer(["settingsStore", "intervalsStore"])
@@ -15,55 +17,36 @@ export default class Intervals extends Component {
 
   constructor(props) {
     super(props);
-console.log(JSON.stringify(this.props));
 
     // const intervalTimes = this._makeIntervals(this.props.startingIntervalSeconds);
     this.props.intervalsStore.initialize(this.props.settingsStore.intervalSeconds);
 
-    this.activeSeconds = this.props.intervalsStore.intervals[0];
-
-
-    this.state = {
-      activeRow: 0,
-      activeSeconds: 0,
-      elapsedSeconds: 0,
-      totalSeconds: 0,
-      hasStarted: false,
-      timerRunning: false,
-      intervalTimes: this.intervalTimes,
-      timer: null,
-      idleTimer: null,
-      playSounds: this.props.playSounds,
-      soundStarted: false
-    };
-
-    this.intervalRows = [];
-    this.scrollView = null;
+    // this.activeSeconds = this.props.intervalsStore.intervals[0];
+    //
+    //
+    // this.state = {
+    //   activeRow: 0,
+    //   activeSeconds: 0,
+    //   elapsedSeconds: 0,
+    //   totalSeconds: 0,
+    //   hasStarted: false,
+    //   timerRunning: false,
+    //   intervalTimes: this.intervalTimes,
+    //   timer: null,
+    //   idleTimer: null,
+    //   playSounds: this.props.playSounds,
+    //   soundStarted: false
+    // };
+    //
+    // this.intervalRows = [];
+    // this.scrollView = null;
   }
 
+  handleChangePlaySounds = (e) => {
+    this.props.settingsStore.playSounds = e.target.checked;
+  };
 
   render() {
-    // const parentState = this.props.parent.state;
-    // //highlight the active row
-    // let rowStyle = styles.inactiveRow;
-    // if (parentState.hasStarted && this.props.row == parentState.activeRow) {
-    //   rowStyle = styles.activeRow;
-    // }
-    //
-    // //decide on the proper label for this row
-    // let label = 'Prone';
-    // if (this.props.row % 4 == 0) {
-    //   label = 'Right side';
-    // } else if (this.props.row % 2 == 0) {
-    //   label = 'Left side';
-    // }
-    //
-    // let activeSeconds = '';
-    // if (this.props.row == parentState.activeRow) {
-    //   activeSeconds = this.props.interval - parentState.activeSeconds;
-    //   //if we're done with the last interval, just set to zero
-    //   activeSeconds = activeSeconds < 0 ? 0 : activeSeconds;
-    // }
     const headers = ['left', 'prone', 'right', 'prone'];
 
     let startStopButton;
@@ -72,15 +55,15 @@ console.log(JSON.stringify(this.props));
       startStopButton =
         <Button
           bsStyle="danger"
-          bsSize="xsmall"
+          bsSize="large"
           onClick={this.props.intervalsStore.stopTimer}>
           Stop
         </Button>
     } else {
       startStopButton =
         <Button
-          bsStyle="info"
-          bsSize="xsmall"
+          bsStyle="success"
+          bsSize="large"
           onClick={this.props.intervalsStore.startTimer}>
           Start
         </Button>
@@ -109,36 +92,31 @@ console.log(JSON.stringify(this.props));
         </div>
 
         <Navbar fixedBottom>
-          <div className="timeLabel">Elapsed</div>
-          <div>{this.props.intervalsStore.formattedTime}</div>
-          {startStopButton}
+          <div className="floatLeft">{startStopButton}</div>
+          <div className="floatLeft">
+            <div className="timeLabel">Time elapsed<span className="timeValue">{this.props.intervalsStore.formattedTime}</span></div>
+            <div className="timeLabel">Total workout<span className="timeValue">{this.props.intervalsStore.totalWorkoutSeconds}</span></div>
+          </div>
+
+          <div className="floatRight">
+            <Button
+              bsStyle="warning"
+              onClick={this.props.intervalsStore.reset}>
+              Reset
+            </Button>
+          </div>
+          <div className="floatRight">
+            <span className="timeLabel">Play sounds?</span>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={this.props.settingsStore.playSounds}
+                onChange={this.handleChangePlaySounds}/>
+              <div className="slider"></div>
+            </label>
+          </div>
 
         </Navbar>
-
-        {/*<View style={[styles.footer, styles.centerVertical]}>*/}
-          {/*<Text style={styles.timeLabel}>{this.state.elapsedSeconds == 0 ? '' : 'Elapsed'}</Text>*/}
-          {/*<Text style={styles.timeTime}>{this.secondsToMinSec(this.state.elapsedSeconds)}</Text>*/}
-          {/*<TouchableHighlight*/}
-            {/*style={[styles.button, styles.startStop, startStopColorStyle, styles.flex_6]}*/}
-            {/*underlayColor={startStopUnderlayColor}*/}
-            {/*onPress={this.onStartStopPressed.bind(this)}>*/}
-            {/*<Text style={styles.buttonText}>{this.state.timerRunning ? 'Stop' : 'Start'}</Text>*/}
-          {/*</TouchableHighlight>*/}
-        {/*</View>*/}
-        {/*<View style={[styles.footer, styles.centerVertical]}>*/}
-          {/*<View style={[styles.foo]}>*/}
-            {/*<Text style={styles.timeLabel}>{'Total'}</Text>*/}
-            {/*<Text style={styles.timeTime}>{this.secondsToMinSec(this.state.totalSeconds)}</Text>*/}
-          {/*</View>*/}
-          {/*<View style={[styles.foo]}>*/}
-            {/*<Text style={styles.inlineLabel}>*/}
-              {/*Play sounds?*/}
-            {/*</Text>*/}
-            {/*<Switch*/}
-              {/*onValueChange={this.onPlaySoundsChanged.bind(this)}*/}
-              {/*value={this.state.playSounds} />*/}
-          {/*</View>*/}
-        {/*</View>*/}
 
       </div>
     );

@@ -28,9 +28,10 @@ module.exports = {
       query: babelConfig.client
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract(
-        'css?modules&camelCase&importLoaders=1!postcss'
-      )
+      // loader: ExtractTextPlugin.extract(
+      //   'css?modules&camelCase&importLoaders=1!postcss'
+      // )
+      loaders: ['style', 'css']
     }, {
       test: /\.(png|jpe?g|gif|svg)$/,
       loader: 'url?name=public/images/[name].[ext]&limit=10000'

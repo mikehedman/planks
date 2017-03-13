@@ -1,6 +1,10 @@
 import { observable, action, computed, autorun } from 'mobx';
+import Awake from 'Awake';
+import SettingsStore from '../Settings/store';
+
 
 class IntervalsStore {
+  originalStartingSeconds = null;
   @observable NUM_INTERVALS = 16;
 
   @observable intervals = [];
@@ -12,18 +16,34 @@ class IntervalsStore {
 
   @action startTimer = () => {
     this.oneSecondInterval = setInterval(action(() => this.eachSecond()), 1000);
+    Awake.stayAwake();
   }
   @action stopTimer = () => {
     clearInterval(this.oneSecondInterval);
     this.oneSecondInterval = null;
+    Awake.disable();
   }
   @action reset = () => {
-    this.elapsedSeconds = 0;
-    return this.elapsedSeconds;
+    this.stopTimer();
+    if (this.originalStartingSeconds != null) {
+      this.initialize(this.originalStartingSeconds);
+    }
   }
 
   @computed get formattedTime() {
-    let seconds = this.elapsedSeconds;
+    return this.formatSeconds(this.elapsedSeconds);
+  }
+
+  @computed get isRunning() {
+    return this.oneSecondInterval !== null;
+  }
+
+  @computed get totalWorkoutSeconds() {
+    const workoutSeconds = this.intervals.reduce((accumulator, value) => accumulator + value, 0);
+    return this.formatSeconds(workoutSeconds);
+  }
+
+  formatSeconds = (seconds) => {
     let text = '';
     let minutes = Math.floor(seconds / 60);
     seconds = seconds % 60;
@@ -37,12 +57,6 @@ class IntervalsStore {
     text += seconds;
     return text;
   }
-
-  @computed get isRunning() {
-    return this.oneSecondInterval !== null;
-  }
-
-
   //
   // @action setPlaySounds(playSounds) {
   //   this.playSounds = playSounds;
@@ -53,6 +67,11 @@ class IntervalsStore {
 console.log('active: ' + this.activeIntervalSeconds + ' elapsed: ' + this.elapsedSeconds + '  index: ' + this.activeIntervalIndex);
     this.activeIntervalSeconds--;
     if (this.activeIntervalSeconds == 0) {
+      //play sound if desired
+      if (SettingsStore.playSounds) {
+        console.log('ding!');
+      }
+
       //find the next non-zero interval
       do {
         if (this.activeIntervalIndex == this.NUM_INTERVALS - 1) {
@@ -67,20 +86,21 @@ console.log('active: ' + this.activeIntervalSeconds + ' elapsed: ' + this.elapse
 
   };
 
-  @action initialize(startingInterval) {
+  @action initialize(startingIntervalSeconds) {
+    this.originalStartingSeconds = startingIntervalSeconds;
     const PRONE_ADJUSTMENT = 15;
 
     let interval_drop;
-    if ((startingInterval) <= 50) {
+    if ((startingIntervalSeconds) <= 50) {
       interval_drop = 5;
-    } else if ((startingInterval) < 75) {
+    } else if ((startingIntervalSeconds) < 75) {
       interval_drop = 10;
     } else {
       interval_drop = 15;
     }
 
     let newIntervals = [];
-    let sideTime = startingInterval;
+    let sideTime = startingIntervalSeconds;
     for (let i = 0; i < this.NUM_INTERVALS / 4; i++) {
       newIntervals.push(Math.max(0, sideTime));
       newIntervals.push(Math.max(0, sideTime - PRONE_ADJUSTMENT));

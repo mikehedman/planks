@@ -34,9 +34,9 @@
 .headerSquare {
   float: left;
   position: relative;
-  width: 22%;
+  width: 24%;
   padding-bottom: 10%; /* = width for a 1:1 aspect ratio */
-  margin: .5%;
+  margin: 0 .5%;
   overflow: hidden;
 }
 
@@ -44,7 +44,7 @@
 .square {
   float: left;
   position: relative;
-  width: 22%;
+  width: 24%;
   padding-bottom: 22%; /* = width for a 1:1 aspect ratio */
   margin: .5%;
   overflow: hidden;
@@ -77,4 +77,45 @@
 }
 .backgroundReverse {
   background-color: SADDLEBROWN;
+}
+
+.navbar {
+  width: 100%;
+  text-align: center;
+}
+.navbar .footer-button {
+  float: none;
+  display: inline-block;
+  margin: 15px 0
+}
+.floatLeft {
+  float: left;
+}
+.floatRight {
+  float: right;
+}
+.footerCentered {
+  width: 50%;
+  margin: 20px auto 0 auto;
+  font-size: 20px;
+  line-height: normal;
+}
+.footerSection {
+  width: 33%;
+}
+.navbar-fixed-bottom {
+  height: 100px;
+  padding: 20px;
+}
+.timeLabel {
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+.timeValue {
+  width: 35px;
+  text-align: right;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
 }

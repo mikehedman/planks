@@ -4,6 +4,7 @@ import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import styles from './styles.css';
 import Header from 'components/Header';
+import Awake from 'Awake';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -15,13 +16,9 @@ export default class Settings extends Component {
   }
 
   componentDidMount() {
-    this.store.startTimer();
+    //turn off Awake in case it was previously running
+    Awake.disable();
   }
-
-  componentWillUnmount() {
-    this.store.stopTimer();
-  }
-
 
   handleChangeIntervalSeconds = (e) => {
     this.props.settingsStore.intervalSeconds = e.target.value;

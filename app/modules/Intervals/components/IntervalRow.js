@@ -3,6 +3,7 @@ import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import styles from '../styles.css';
 
+// deprecated, using square now
 @observer
 export default class IntervalRow extends Component {
 

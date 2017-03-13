@@ -46,7 +46,7 @@ export default function App({ children }) {
           {children}
         </Provider>
       </main>
-      <DevTools position={{ bottom: 0, right: 20 }} />
+      {/*<DevTools position={{ bottom: 0, right: 20 }} />*/}
     </div>
   );
 }
