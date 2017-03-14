@@ -1,5 +1,5 @@
 import { observable, action, computed, autorun } from 'mobx';
-import Awake from 'Awake';
+import Awake from '../../shared/Awake';
 import SettingsStore from '../Settings/store';
 
 

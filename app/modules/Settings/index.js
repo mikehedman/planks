@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import styles from './styles.css';
-import Header from 'components/Header';
-import Awake from 'Awake';
+import Header from '../../shared/components/Header';
+import Awake from '../../shared/Awake';
 
 import Button from 'react-bootstrap/lib/Button';
 

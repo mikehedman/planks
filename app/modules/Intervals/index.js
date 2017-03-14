@@ -6,7 +6,7 @@ import IntervalSquare from './components/IntervalSquare';
 
 const START_UNDERLAY_COLOR = '#abd59c';
 const STOP_UNDERLAY_COLOR = '#e06060';
-import Header from 'components/Header';
+import Header from '../../shared/components/Header';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';

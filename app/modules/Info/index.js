@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Header from 'components/Header';
-import Awake from 'Awake';
-import Sounds from 'Sounds';
+import Header from '../../shared/components/Header';
+import Awake from '../../shared/Awake';
+import Sounds from '../../shared/Sounds';
 import Button from 'react-bootstrap/lib/Button';
 
 export default class Info extends Component {
