@@ -1,5 +1,6 @@
 import { observable, action, computed, autorun } from 'mobx';
 import Awake from '../../shared/Awake';
+import Sounds from '../../shared/Sounds';
 import SettingsStore from '../Settings/store';
 
 
@@ -17,6 +18,7 @@ class IntervalsStore {
   @action startTimer = () => {
     this.oneSecondInterval = setInterval(action(() => this.eachSecond()), 1000);
     Awake.stayAwake();
+    Sounds.enable();
   }
   @action stopTimer = () => {
     clearInterval(this.oneSecondInterval);
@@ -43,7 +45,7 @@ class IntervalsStore {
     return this.formatSeconds(workoutSeconds);
   }
 
-  formatSeconds = (seconds) => {
+  formatSeconds(seconds) {
     let text = '';
     let minutes = Math.floor(seconds / 60);
     seconds = seconds % 60;
@@ -57,19 +59,14 @@ class IntervalsStore {
     text += seconds;
     return text;
   }
-  //
-  // @action setPlaySounds(playSounds) {
-  //   this.playSounds = playSounds;
-  // }
 
   eachSecond() {
     this.elapsedSeconds++;
-console.log('active: ' + this.activeIntervalSeconds + ' elapsed: ' + this.elapsedSeconds + '  index: ' + this.activeIntervalIndex);
     this.activeIntervalSeconds--;
     if (this.activeIntervalSeconds == 0) {
       //play sound if desired
       if (SettingsStore.playSounds) {
-        console.log('ding!');
+        Sounds.play();
       }
 
       //find the next non-zero interval

@@ -1,18 +1,24 @@
 class Awake {
-
-  iosSleepPreventInterval;
+  constructor() {
+    this.intervalDuration = 20000;
+    this.sleepPreventInterval;
+  }
 
   stayAwake() {
-    this.iosSleepPreventInterval = setInterval(function () {
+    this.sleepPreventInterval = setInterval(function () {
       window.location.href = "/new/page";
       window.setTimeout(function () {
         window.stop()
       }, 0);
-    }, 20000);
+    }, this.intervalDuration);
   }
 
   disable() {
-    clearInterval(this.iosSleepPreventInterval);
+    clearInterval(this.sleepPreventInterval);
+  }
+
+  setIntervalDuration(intervalDuration) {
+    this.intervalDuration = intervalDuration;
   }
 
 }

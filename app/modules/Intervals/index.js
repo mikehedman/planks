@@ -102,7 +102,7 @@ export default class Intervals extends Component {
             <Button
               bsStyle="warning"
               onClick={this.props.intervalsStore.reset}>
-              Reset
+              Reset workout
             </Button>
           </div>
           <div className="floatRight">

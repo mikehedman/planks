@@ -2,8 +2,13 @@ import { observable, action, autorun, transaction } from 'mobx';
 
 class SettingsStore {
 
-  @observable intervalSeconds = 25;
-  @observable playSounds = false;
+  @observable intervalSeconds;
+  @observable playSounds;
+
+  constructor() {
+    this.intervalSeconds = 25;
+    this.playSounds = false;
+  }
 
 }
 

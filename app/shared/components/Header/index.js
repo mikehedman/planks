@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
+import { LinkContainer } from 'react-router-bootstrap';
 
 export default class Header extends Component {
   render() {
@@ -24,13 +25,18 @@ export default class Header extends Component {
     if (this.props.leftLink) {
       left =
         <Nav pullLeft>
-          <NavItem eventKey={1} href={this.props.leftLink}>{this.props.leftText}</NavItem>
+          <LinkContainer to={this.props.leftLink}>
+            <NavItem eventKey={1}>{this.props.leftText}</NavItem>
+          </LinkContainer>
         </Nav>
+
     }
     if (this.props.rightLink) {
       right =
         <Nav pullRight>
-          <NavItem eventKey={2} href="/info">{this.props.rightText}</NavItem>
+          <LinkContainer to={this.props.rightLink}>
+            <NavItem eventKey={2}>{this.props.rightText}</NavItem>
+          </LinkContainer>
         </Nav>
     }
 

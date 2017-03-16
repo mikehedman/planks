@@ -6,7 +6,7 @@
   "scripts": {
     "start": "hjs-dev-server",
     "build": "webpack",
-    "deploy": "npm run build && surge -p public -d somedomain.com"
+    "deploy": "NODE_ENV=production npm run build && surge -p public -d planks.mikehedman.com"
   },
   "keywords": [
     "react",
