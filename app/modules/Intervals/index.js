@@ -20,26 +20,6 @@ export default class Intervals extends Component {
 
     // const intervalTimes = this._makeIntervals(this.props.startingIntervalSeconds);
     this.props.intervalsStore.initialize(this.props.settingsStore.intervalSeconds);
-
-    // this.activeSeconds = this.props.intervalsStore.intervals[0];
-    //
-    //
-    // this.state = {
-    //   activeRow: 0,
-    //   activeSeconds: 0,
-    //   elapsedSeconds: 0,
-    //   totalSeconds: 0,
-    //   hasStarted: false,
-    //   timerRunning: false,
-    //   intervalTimes: this.intervalTimes,
-    //   timer: null,
-    //   idleTimer: null,
-    //   playSounds: this.props.playSounds,
-    //   soundStarted: false
-    // };
-    //
-    // this.intervalRows = [];
-    // this.scrollView = null;
   }
 
   handleChangePlaySounds = (e) => {

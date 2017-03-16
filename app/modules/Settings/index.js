@@ -48,14 +48,13 @@ export default class Settings extends Component {
             </div>
 
             <input
-              type="text"
+              type="number"
               value={this.props.settingsStore.intervalSeconds}
               placeholder='>15 sec'
               onChange={this.handleChangeIntervalSeconds}/>
           </div>
           <Button
             bsStyle="info"
-            bsSize="xsmall"
             onClick={this.onIntervalGoPressed.bind(this)}>
             Go
           </Button>
