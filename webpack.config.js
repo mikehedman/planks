@@ -10,7 +10,9 @@ module.exports = getConfig({
       title: 'Planks',
       metaTags: {
         "apple-mobile-web-app-title": "Planks3",
-        "application-name": "Planks3"
+        "application-name": "Planks3",
+        "apple-mobile-web-app-capable": "yes",
+        "apple-mobile-web-app-status-bar-style": "black-translucent"
       }
     };
     return {
