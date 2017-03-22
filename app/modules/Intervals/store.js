@@ -28,6 +28,7 @@ console.log('in startTimer');
   }
   @action reset = () => {
     this.stopTimer();
+    this.elapsedSeconds = 0;
     if (this.originalStartingSeconds != null) {
       this.initialize(this.originalStartingSeconds);
     }
