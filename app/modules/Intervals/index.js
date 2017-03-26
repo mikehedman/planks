@@ -8,6 +8,8 @@ const START_UNDERLAY_COLOR = '#abd59c';
 const STOP_UNDERLAY_COLOR = '#e06060';
 import Header from '../../shared/components/Header';
 import Navbar from 'react-bootstrap/lib/Navbar';
+import SoundsSlider from '../../shared/components/SoundsSlider';
+
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Button from 'react-bootstrap/lib/Button';
@@ -21,10 +23,6 @@ export default class Intervals extends Component {
     // const intervalTimes = this._makeIntervals(this.props.startingIntervalSeconds);
     this.props.intervalsStore.initialize(this.props.settingsStore.intervalSeconds);
   }
-
-  handleChangePlaySounds = (e) => {
-    this.props.settingsStore.playSounds = e.target.checked;
-  };
 
   render() {
     const headers = ['left', 'prone', 'right', 'prone'];
@@ -49,7 +47,6 @@ export default class Intervals extends Component {
         </Button>
     }
 
-    let switchClasses = 'switch ' + (this.props.settingsStore.playSounds ? 'unmuted' : 'muted');
     return (
       <div>
         <Header leftLink="/" leftText="Settings"/>
@@ -91,13 +88,7 @@ export default class Intervals extends Component {
           </div>
 
           <div className="inlineForm floatRight">
-            <label className={switchClasses}>
-              <input
-                type="checkbox"
-                checked={this.props.settingsStore.playSounds}
-                onChange={this.handleChangePlaySounds}/>
-              <div className="slider"></div>
-            </label>
+            <SoundsSlider settingsStore={this.props.settingsStore} />
           </div>
 
         </Navbar>
