@@ -6,10 +6,12 @@ class SettingsStore {
   @observable playSounds;
 
   constructor() {
-    this.intervalSeconds = 25;
-    this.playSounds = false;
+    var self = this;
+    this.intervalSeconds = localStorage.getItem('intervalSeconds');
+    this.playSounds = (localStorage.getItem('playSounds') == 'true') || false;
+    autorun(() => localStorage.setItem('intervalSeconds', self.intervalSeconds));
+    autorun(() => localStorage.setItem('playSounds', self.playSounds));
   }
-
 }
 
 const store = new SettingsStore;
