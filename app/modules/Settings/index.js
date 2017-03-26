@@ -34,42 +34,49 @@ export default class Settings extends Component {
     return (
       <div>
         <Header rightLink="/info" rightText="Info"/>
+        <div className="pageContentContainer">
 
-        <h1>
-          Select a workout:
-        </h1>
-        <section>
-          <h2>
-            Intervals
-          </h2>
-          <div>
-            <div className="label">
-              Starting seconds:
+          <h1>
+            Select a workout:
+          </h1>
+          <section>
+            <h2>
+              Intervals
+            </h2>
+            <div className="inlineForm">
+              <div className="label">
+                Starting seconds:
+              </div>
+
+              <input
+                type="number"
+                value={this.props.settingsStore.intervalSeconds}
+                placeholder='>15 sec'
+                onChange={this.handleChangeIntervalSeconds} />
+
+              <Button
+                bsStyle="info"
+                onClick={this.onIntervalGoPressed.bind(this)}>
+                Go
+              </Button>
             </div>
 
-            <input
-              type="number"
-              value={this.props.settingsStore.intervalSeconds}
-              placeholder='>15 sec'
-              onChange={this.handleChangeIntervalSeconds}/>
+
+          </section>
+
+          <div className="inlineForm">
+            <div className="label">
+              Play sounds?
+            </div>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={this.props.settingsStore.playSounds}
+                onChange={this.handleChangePlaySounds}/>
+                <div className="slider"></div>
+            </label>
           </div>
-          <Button
-            bsStyle="info"
-            onClick={this.onIntervalGoPressed.bind(this)}>
-            Go
-          </Button>
-
-        </section>
-
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={this.props.settingsStore.playSounds}
-            onChange={this.handleChangePlaySounds}/>
-            <div className="slider"></div>
-        </label>
-
-        <div>play sounds: {this.props.settingsStore.playSounds ? "Yes" : "No"}</div>
+        </div>
           {/*<section>*/}
             {/*<h2>*/}
               {/*Timer Mode*/}

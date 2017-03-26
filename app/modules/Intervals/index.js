@@ -49,12 +49,14 @@ export default class Intervals extends Component {
         </Button>
     }
 
+    let switchClasses = 'switch ' + (this.props.settingsStore.playSounds ? 'unmuted' : 'muted');
     return (
       <div>
         <Header leftLink="/" leftText="Settings"/>
-        <div className="intervalContainer">
-          {headers.map(function(text, index) {
-            return <div className="headerSquare" key={index} >
+        <div className="pageContentContainer">
+          <div>
+            {headers.map(function(text, index) {
+              return <div className="headerSquare" key={index} >
                 <div className="content">
                   <div className="table">
                     <div className="table-cell">
@@ -64,30 +66,32 @@ export default class Intervals extends Component {
                 </div>
               </div>
             })
-          }
-          {this.props.intervalsStore.intervals.map(function(interval, index) {
-            return <IntervalSquare key={index} interval={interval} activeIntervalIndex={this.props.intervalsStore.activeIntervalIndex} row={index} activeIntervalSeconds={this.props.intervalsStore.activeIntervalSeconds}/>
-            {/*return <IntervalSquare key={index} interval={interval} activeIntervalIndex={this.props.intervalsStore.activeIntervalIndex} row={index} ref={component => this.intervalRows['interval' + index] = component}/>*/}
-          }, this)}
+            }
+            {this.props.intervalsStore.intervals.map(function(interval, index) {
+              return <IntervalSquare key={index} interval={interval} activeIntervalIndex={this.props.intervalsStore.activeIntervalIndex} row={index} activeIntervalSeconds={this.props.intervalsStore.activeIntervalSeconds}/>
+              {/*return <IntervalSquare key={index} interval={interval} activeIntervalIndex={this.props.intervalsStore.activeIntervalIndex} row={index} ref={component => this.intervalRows['interval' + index] = component}/>*/}
+            }, this)}
+          </div>
+          <div className="timeBlock">
+            <div className="timeLabel">Time elapsed<span className="timeValue">{this.props.intervalsStore.formattedTime}</span></div>
+            <div className="timeLabel">Total workout<span className="timeValue">{this.props.intervalsStore.totalWorkoutSeconds}</span></div>
+          </div>
         </div>
 
         <Navbar fixedBottom>
           <div className="floatLeft">{startStopButton}</div>
-          <div className="floatLeft">
-            <div className="timeLabel">Time elapsed<span className="timeValue">{this.props.intervalsStore.formattedTime}</span></div>
-            <div className="timeLabel">Total workout<span className="timeValue">{this.props.intervalsStore.totalWorkoutSeconds}</span></div>
-          </div>
 
           <div className="floatRight">
             <Button
               bsStyle="warning"
-              onClick={this.props.intervalsStore.reset}>
+              onClick={this.props.intervalsStore.reset}
+              disabled={this.props.intervalsStore.isRunning}>
               Reset workout
             </Button>
           </div>
-          <div className="floatRight">
-            <span className="timeLabel">Play sounds?</span>
-            <label className="switch">
+
+          <div className="inlineForm floatRight">
+            <label className={switchClasses}>
               <input
                 type="checkbox"
                 checked={this.props.settingsStore.playSounds}
@@ -104,4 +108,4 @@ export default class Intervals extends Component {
 
 }
 
-export store from './store';
+  export store from './store';

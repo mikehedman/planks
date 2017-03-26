@@ -18,7 +18,6 @@ class IntervalsStore {
   @action startTimer = () => {
     this.oneSecondInterval = setInterval(action(() => this.eachSecond()), 1000);
     Awake.stayAwake();
-console.log('in startTimer');
     Sounds.enable();
   }
   @action stopTimer = () => {

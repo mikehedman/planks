@@ -27,10 +27,6 @@
   width: 300px;
 }
 
-.intervalContainer {
-  margin: 0 10%;
-}
-
 .headerSquare {
   float: left;
   position: relative;
@@ -88,6 +84,9 @@
   display: inline-block;
   margin: 15px 0
 }
+.navbar .floatRight button {
+  margin: 0 0 10px 10px;
+}
 .floatLeft {
   float: left;
 }
@@ -105,12 +104,11 @@
 }
 .navbar-fixed-bottom {
   height: 100px;
-  padding: 20px;
+  padding: 10px;
 }
 .timeLabel {
   font-size: 15px;
   font-weight: bold;
-  margin-left: 10px;
 }
 .timeValue {
   width: 35px;
@@ -118,4 +116,10 @@
   display: inline-block;
   font-size: 15px;
   font-weight: bold;
+  padding-left: 10px;
+}
+.timeBlock {
+  clear: both;
+  text-align: center;
+  padding: 15px 0;
 }

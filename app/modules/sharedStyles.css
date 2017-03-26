@@ -41,6 +41,7 @@ body {
   display: inline-block;
   width: 60px;
   height: 34px;
+  vertical-align: middle;
 }
 
 /* Hide default HTML checkbox */
@@ -71,6 +72,13 @@ body {
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;
+}
+
+.muted .slider:before {
+  background-image: url("../assets/ic_volume_off.png");
+}
+.unmuted .slider:before {
+  background-image: url("../assets/ic_volume_up.png");
 }
 
 input:checked + .slider {
@@ -237,4 +245,26 @@ input:checked + .slider:before {
 
 .navbar-form .has-feedback .form-control-feedback {
   top: 0;
+}
+
+.pageContentContainer {
+  margin: 0 10%;
+}
+.inlineForm {
+  vertical-align: middle;
+  margin-bottom: 15px;
+}
+.inlineForm > * {
+  vertical-align: middle;
+  display: inline-block;
+}
+.inlineForm input {
+  max-width: 75px;
+}
+.inlineForm button {
+  margin-left: 10px;
+}
+.label {
+  font-size: 15px;
+  font-weight: bold;
 }
