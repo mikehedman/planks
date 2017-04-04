@@ -13,7 +13,11 @@ module.exports = getConfig({
         "application-name": "Planks",
         "apple-mobile-web-app-capable": "yes",
         "apple-mobile-web-app-status-bar-style": "default"
-      }
+      },
+      links: {
+        "manifest": "/manifest.json"
+      },
+      manifest: 'auto.appcache'
     };
     return {
       'index.html': context.defaultTemplate(data)

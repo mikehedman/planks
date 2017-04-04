@@ -2,7 +2,9 @@ body, ul {
   margin: 0;
 }
 body {
-  font: 15px Ubuntu, sans-serif;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  font: 20px Ubuntu, sans-serif;
   background-color: #eee;
 }
 
@@ -165,7 +167,8 @@ body {
 }
 
 .pageContentContainer {
-  margin: 0 10%;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 .inlineForm {
   vertical-align: middle;

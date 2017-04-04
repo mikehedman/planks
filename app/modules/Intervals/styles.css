@@ -51,7 +51,7 @@
   height: 100%; /* = 100% - 2*5% padding */
   width: 100%; /* = 100% - 2*5% padding */
   padding: 5%;
-  font-size: 20px;
+  font-size: 30px;
 }
 .table{
   display: table;
@@ -66,7 +66,12 @@
 .activeInterval {
   color: white;
   background-color: sienna;
+}
+.activeInterval .content {
   font-size: 40px;
+}
+.headerSquare .content {
+  font-size: 20px;
 }
 .backgroundNormal {
   background-color: bisque;
@@ -106,14 +111,14 @@
   padding: 10px;
 }
 .timeLabel {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
 }
 .timeValue {
   width: 35px;
   text-align: right;
   display: inline-block;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   padding-left: 10px;
 }

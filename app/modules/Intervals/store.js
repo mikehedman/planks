@@ -15,6 +15,9 @@ class IntervalsStore {
   @observable elapsedSeconds = 0;
   @observable oneSecondInterval = null;
 
+  @observable windowWidth = null;
+  @observable windowHeight = null;
+
   @action startTimer = () => {
     this.oneSecondInterval = setInterval(action(() => this.eachSecond()), 1000);
     Awake.stayAwake();
@@ -65,10 +68,7 @@ class IntervalsStore {
     this.elapsedSeconds++;
     this.activeIntervalSeconds--;
     if (this.activeIntervalSeconds == 0) {
-      //play sound if desired
-      if (SettingsStore.playSounds) {
-        Sounds.play();
-      }
+      let numSoundsToPlay = 1;
 
       //find the next non-zero interval
       do {
@@ -78,8 +78,16 @@ class IntervalsStore {
         } else {
           this.activeIntervalIndex++;
           this.activeIntervalSeconds = this.intervals[this.activeIntervalIndex];
+          if (this.intervals[this.activeIntervalIndex] == 0) {
+            numSoundsToPlay++;
+          }
         }
       } while (this.intervals[this.activeIntervalIndex] == 0 && this.activeIntervalIndex !== null);
+
+      //play up to three sounds if there were intervals with zeros
+      if (SettingsStore.playSounds) {
+        Sounds.play(Math.min(numSoundsToPlay, 3));
+      }
     }
 
   };
@@ -110,6 +118,15 @@ class IntervalsStore {
     this.intervals = newIntervals;
     this.activeIntervalIndex = 0;
     this.activeIntervalSeconds = this.intervals[0];
+  }
+
+  @action updateWindowDimensions() {
+    this.windowWidth = window.innerWidth;
+    //140 = sum of the heights of the header and footer
+    this.windowHeight = window.innerHeight - 140;
+
+    console.log('w: ' +  this.windowWidth + '  h: ' + this.windowHeight);
+
   }
 
 }

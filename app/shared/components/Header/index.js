@@ -28,7 +28,7 @@ export default class Header extends Component {
     }
 
     return (
-      <Navbar>
+      <Navbar fixedTop>
         {left}
         {right}
       </Navbar>

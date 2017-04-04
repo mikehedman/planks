@@ -12,6 +12,7 @@ import apple_touch_icon from '!!file?name=apple-touch-icon.png!../assets/apple-t
 import favicon from '!!file?name=favicon.ico!../assets/favicon.ico';
 import ic_volume_off from '!!file?name=assets/ic_volume_off.png!../assets/ic_volume_off.png';
 import ic_volume_up from '!!file?name=assets/ic_volume_up.png!../assets/ic_volume_up.png';
+import manifest from '!!file?name=manifest.json!../manifest.json';
 
 import { store as settingsStore } from './Settings';
 import { store as noteStore } from './Notes';

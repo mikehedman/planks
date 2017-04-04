@@ -55,8 +55,10 @@ export default class Settings extends Component {
                 onChange={this.handleChangeIntervalSeconds} />
 
               <Button
-                bsStyle="info"
-                onClick={this.onIntervalGoPressed.bind(this)}>
+                bsStyle="success"
+                onClick={this.onIntervalGoPressed.bind(this)}
+                disabled={!this.props.settingsStore || !(this.props.settingsStore.intervalSeconds > 0)}
+              >
                 Go
               </Button>
             </div>

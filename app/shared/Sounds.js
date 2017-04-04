@@ -4,6 +4,7 @@ class Sounds {
     if (typeof window !== 'undefined') {
       this.context = new (window.AudioContext || window.webkitAudioContext);
     }
+    this.seconds = 1;
   }
 
   /**
@@ -49,10 +50,20 @@ class Sounds {
   }
 
   /**
-   * play the sound
+   * play the sound (num) times
+   * @param {int} num The number of times to play the sound. Optional, defaults to 1
    */
-  play() {
-    this.cowbell(1);
+  play(num) {
+    num = num || 1;
+
+    //play shorter sounds if there's going to be more than one
+    let duration = (num == 1) ? this.seconds : this.seconds * .5;
+
+    for (let i = 0; i < num; i++) {
+      setTimeout(() => {
+        this.cowbell(this.seconds);
+      }, i * duration * 1000);
+    }
   }
 
 }
