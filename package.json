@@ -1,7 +1,7 @@
 {
   "name": "one",
-  "version": "1.0.0",
-  "description": "React MobX boilerplate",
+  "version": "0.5.0",
+  "description": "Planks exercise app",
   "main": "index.js",
   "scripts": {
     "start": "hjs-dev-server",
